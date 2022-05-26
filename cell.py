@@ -10,6 +10,9 @@ class Cell:
         self.position_y = position_y
         self.speed_x = speed_x
         self.speed_y = speed_y
+
+    def function(self):
+        return "function called"
        
     #to print the object
     def __str__(self):
