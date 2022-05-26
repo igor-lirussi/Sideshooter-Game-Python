@@ -17,4 +17,4 @@ class Cell:
        
     #to print the object
     def __str__(self):
-    	return "Cell '{}' health: {} at: {},{} speed: {},{}".format(self.name,self.health, self.position_x, self.position_y, self.speed_x, self.speed_y)
+    	return "Cell named '{}' health: {} at: {},{} speed: {},{}".format(self.name,self.health, self.position_x, self.position_y, self.speed_x, self.speed_y)
