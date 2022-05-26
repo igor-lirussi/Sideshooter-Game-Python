@@ -4,22 +4,23 @@ from cell import Cell
 #inhearitance from Cell class
 class Virus(Cell):
     #Constructor with more arguments
-    def __init__(self, virus_type, image, position_x, position_y, name="WhiteBloodCell", width=256, speed_x=0, speed_y=0, damage = 10):
+    def __init__(self, virus_type, image, position_x, position_y, name="Virus", health= 50, width=256, speed_x=0, speed_y=0, damage = 10):
         #initialization of properties of the parent Cell class
-        super().__init__(image, position_x, position_y, name, width, speed_x, speed_y)
-        self.type = virus_type
+        super().__init__(image=image, position_x=position_x, position_y=position_y, name=name, health= health, width=width, speed_x=speed_x, speed_y=speed_y)
+        #viruses have type and damage
+        self.virus_type = virus_type
         self.damage = damage
 
 
-#inhearitance from Virus class
+#inhearitance from Virus class, name can be changed from the default one, type is fixed
 class Covid_19(Virus):
-    def __init__(self, image, position_x, position_y, name="Covid_19", width=256, speed_x=0, speed_y=0, damage = 10):
-        super().__init__(image, position_x, position_y, name, width, speed_x, speed_y, damage, virus_type="Covid_19")
+    def __init__(self, image, position_x, position_y, name="Covid_19", health=70, width=256, speed_x=0, speed_y=0, damage = 10):
+        super().__init__(image=image, position_x=position_x, position_y=position_y, name=name, health=health, width=width, speed_x=speed_x, speed_y=speed_y, damage=damage, virus_type="Covid_19")
 
 class Omicron(Virus):
-    def __init__(self, image, position_x, position_y, name="Omicron", width=256, speed_x=0, speed_y=0, damage = 10):
-        super().__init__(image, position_x, position_y, name, width, speed_x, speed_y, damage, virus_type="Omicron")
+    def __init__(self, image, position_x, position_y, name="Omicron", health=80, width=256, speed_x=0, speed_y=0, damage = 20):
+        super().__init__(image=image, position_x=position_x, position_y=position_y, name=name, health=health, width=width, speed_x=speed_x, speed_y=speed_y, damage=damage, virus_type="Omicron")
 
 class Delta(Virus):
-    def __init__(self, image, position_x, position_y, name="Delta", width=256, speed_x=0, speed_y=0, damage = 10):
-        super().__init__(image, position_x, position_y, name, width, speed_x, speed_y, damage, virus_type="Delta")
+    def __init__(self, image, position_x, position_y, name="Delta", health=90, width=256, speed_x=0, speed_y=0, damage = 30):
+        super().__init__(image=image, position_x=position_x, position_y=position_y, name=name, health=health, width=width, speed_x=speed_x, speed_y=speed_y, damage=damage, virus_type="Delta")
