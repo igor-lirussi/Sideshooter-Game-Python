@@ -1,4 +1,5 @@
 import pygame
+import os
 
 class Cell:
     """ a generic Cell """
@@ -12,6 +13,18 @@ class Cell:
         self.position_y = position_y
         self.speed_x = speed_x
         self.speed_y = speed_y
+
+        #creates surface, loading image, and creating a faster copy considering transparency
+        self.player_surf = pygame.image.load(os.path.join('img', self.image)).convert_alpha()
+        #scale to desired size
+        self.player_surf = pygame.transform.smoothscale(self.player_surf, (self.width, self.width))
+        #get rectangle around player, 0,0 512, 512
+        #player_rect = player_surf.get_rect()
+        #print(player_rect) 
+
+    def draw(self, screen):
+        #draw player on screen
+        screen.blit(self.player_surf, (self.position_x,self.position_y) )
 
     def kill(self):
         self.health=0

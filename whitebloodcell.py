@@ -8,4 +8,3 @@ class WhiteBloodCell(Cell):
     	#initialization of properties of the parent Cell class
     	super().__init__(image=image, position_x=position_x, position_y=position_y, name=name, health= health, width=width, speed_x=speed_x, speed_y=speed_y)
         
-        
