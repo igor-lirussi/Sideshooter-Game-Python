@@ -1,7 +1,7 @@
 import pygame
 from cell import Cell
 
-#inhearitance from Cell class
+#inheritance from Cell class
 class WhiteBloodCell(Cell):
 	#Constructor with more arguments
     def __init__(self, image, position_x, position_y, name="WhiteBloodCell", health=100, width=256, speed_x=0, speed_y=0):
