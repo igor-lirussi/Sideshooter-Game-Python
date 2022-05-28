@@ -27,7 +27,8 @@ class Cell:
         #draw element on screen
         screen.blit(self.player_surf, (self.position_x,self.position_y))
 
-    #MOVEMENT
+    #MOVEMENT 
+    #moves the cell, player or enemy to a direction, within the screen
     def up(self):
         self.position_y = self.position_y - self.speed_y
         if self.position_y<0:
@@ -48,6 +49,9 @@ class Cell:
         if self.position_x>pygame.display.get_window_size()[0]-self.width:
             self.position_x=pygame.display.get_window_size()[0]-self.width
 
+    def move_autonomously(self):
+        print("move_autonomously not implemented")
+        #to be overridden
 
     def kill(self):
         self.health=0

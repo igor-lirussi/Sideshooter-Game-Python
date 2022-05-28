@@ -1,3 +1,4 @@
+#IMPORTS
 import sys, os
 import pygame
 from pygame.locals import(
@@ -10,6 +11,7 @@ from pygame.locals import(
 )
 from whitebloodcell import WhiteBloodCell
 
+#MACROS
 SIZE = WIDTH, HEIGHT = 720, 480
 BLACK = 0, 0, 0
 
@@ -21,21 +23,21 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode(SIZE)
 
 #create player
-player = WhiteBloodCell('wbc.png', position_x=10, position_y=10, height=60, width=90, speed_x=5, speed_y=5)
+player = WhiteBloodCell('wbc.png', position_x=10, position_y=10, height=60, width=60, speed_x=5, speed_y=5)
 
 #Game Loop
 while True:
     clock.tick(60) #FPS
 
+    # EVENTS
     for event in pygame.event.get():
         if (event.type==pygame.QUIT) or (event.type==pygame.KEYDOWN and event.key==K_ESCAPE): 
             sys.exit()
 
+        #even triggered only on key press
         if event.type == pygame.KEYDOWN:
-            if event.key == K_UP:
-                player.up()
-            elif event.key == K_DOWN:
-                player.down()
+            if event.key == pygame.K_v:
+                player.shoot()
 
     #get keyboard state to understand the keys kept pressed
     keyboardstate = pygame.key.get_pressed()
@@ -48,7 +50,7 @@ while True:
     if keyboardstate[K_DOWN]:
         player.down()          
 
-    #DRAW PART
+    # DRAW 
     #draw backround in black
     screen.fill(BLACK)
     #draw player on screen
