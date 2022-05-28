@@ -1,4 +1,7 @@
+import pygame
 from cell import Cell
+
+GREEN = (0,255, 0)
 
 #inheritance from Cell class
 class WhiteBloodCell(Cell):
@@ -11,3 +14,8 @@ class WhiteBloodCell(Cell):
     def move_autonomously(self):
         #player doesn't need to move autonomously cause it's controlled by events
         pass
+
+    def draw(self, screen):
+        super().draw(screen)
+        #draw also health
+        pygame.draw.line(screen, GREEN, (int(self.position_x), int(self.position_y)), (int(self.position_x + (self.width*(self.health/self.MAX_HEALTH))), int(self.position_y)), 3)

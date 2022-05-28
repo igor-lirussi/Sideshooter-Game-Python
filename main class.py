@@ -1,5 +1,6 @@
 #IMPORTS
 import sys, os
+import random
 import pygame
 from pygame.locals import(
     K_UP,
@@ -11,6 +12,7 @@ from pygame.locals import(
 )
 from whitebloodcell import WhiteBloodCell
 from bullet import *
+from virus import *
 
 #MACROS
 SIZE = WIDTH, HEIGHT = 720, 480
@@ -18,8 +20,10 @@ PLAYER_SIZE = 60
 PLAYER_SPEED = 5
 BULLET_SIZE = 25
 BULLET_SPEED = 5
-ENEMY_SIZE = 70
-ENEMY_SPEED =3
+BULLET_NUMBER = 3
+ENEMY_SIZE = 30
+ENEMY_SPEED = 3
+ENEMY_NUMBER = 5
 #colors
 BLACK = 0, 0, 0
 
@@ -46,13 +50,19 @@ game_elements.append(player)
 
 #create bullets
 bullets = []
-for num_bullet in range(3):
+for num_bullet in range(BULLET_NUMBER):
     b = NormalBullet("wbc.png", position_x=WIDTH/2+BULLET_SIZE*num_bullet, position_y=5, damage=20, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
     bullets.append(b)
 game_elements = game_elements + bullets
     
-for el in game_elements:
-    print(el)
+#create enemies
+enemies = []
+for num_enemy in range(ENEMY_NUMBER):
+    e = Omicron(image="virus.png", position_x=random.randint(WIDTH, 2*WIDTH), position_y=random.randint(0, WIDTH-ENEMY_SIZE), height=ENEMY_SIZE, width=ENEMY_SIZE, speed_x=ENEMY_SPEED, speed_y=ENEMY_SPEED)
+    enemies.append(e)
+    print(e)
+game_elements = game_elements + enemies
+
 
 #Game Loop
 while True:

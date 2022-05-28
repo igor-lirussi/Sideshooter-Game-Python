@@ -10,6 +10,7 @@ class Cell:
         self.position_y = position_y
         self.name = name
         self.health = health
+        self.MAX_HEALTH = health
         self.height = height
         self.width = width
         self.speed_x = speed_x
