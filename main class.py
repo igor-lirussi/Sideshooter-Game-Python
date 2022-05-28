@@ -14,7 +14,15 @@ from bullet import *
 
 #MACROS
 SIZE = WIDTH, HEIGHT = 720, 480
+PLAYER_SIZE = 60
+PLAYER_SPEED = 5
+BULLET_SIZE = 25
+BULLET_SPEED = 5
+ENEMY_SIZE = 70
+ENEMY_SPEED =3
+#colors
 BLACK = 0, 0, 0
+
 
 #initialize modules
 pygame.init()
@@ -33,16 +41,18 @@ pygame.display.set_icon(icon)
 game_elements = []
 
 #create player
-player = WhiteBloodCell('wbc.png', position_x=10, position_y=10, height=60, width=60, speed_x=5, speed_y=5)
+player = WhiteBloodCell('wbc.png', position_x=20, position_y=20, height=PLAYER_SIZE, width=PLAYER_SIZE, speed_x=PLAYER_SPEED, speed_y=PLAYER_SPEED)
 game_elements.append(player)
 
 #create bullets
 bullets = []
 for num_bullet in range(3):
-    b = Bullet("bullet normal", 20, "wbc.png", position_x=WIDTH/2+num_bullet*30, position_y=5, height=25, width=25, speed_x=10)
+    b = NormalBullet("wbc.png", position_x=WIDTH/2+BULLET_SIZE*num_bullet, position_y=5, damage=20, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
     bullets.append(b)
 game_elements = game_elements + bullets
     
+for el in game_elements:
+    print(el)
 
 #Game Loop
 while True:
@@ -71,7 +81,7 @@ while True:
                 player_pos = player.get_position()
                 for b in bullets:
                     if b.is_ready():
-                        b.fire(player_pos[0]+60, player_pos[1]+15)
+                        b.fire(player_pos[0]+PLAYER_SIZE, player_pos[1]+(PLAYER_SIZE-BULLET_SIZE)/2)
                         break
 
     #get keyboard state to understand the keys kept pressed

@@ -9,7 +9,7 @@ class Status(Enum):
 class Bullet(Cell):
     """ generic bullet """
     #Constructor 
-    def __init__(self, bullet_type, damage, image, position_x, position_y, status = Status.READY, name="Bullet", health=100, height=256, width=256, speed_x=1, speed_y=1):
+    def __init__(self, bullet_type, damage, image, position_x, position_y, status=Status.READY, name="Bullet", health=100, height=256, width=256, speed_x=1, speed_y=1):
         #initialization of properties of the parent Cell class
         super().__init__(image=image, position_x=position_x, position_y=position_y, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y)
         self.bullet_type = bullet_type
@@ -43,10 +43,10 @@ class Bullet(Cell):
         return self.status == Status.READY
 
 class Rocket(Bullet):
-    def __init__(self, damage=90):
-        super().__init__(bullet_type="Rocket", damage=damage, speed=5)
+    def __init__(self, image, position_x, position_y, damage=90, status=Status.READY, name="Rocket", health=100, height=256, width=256, speed_x=1, speed_y=1):
+        super().__init__(bullet_type="Rocket", damage=damage, image=image, position_x=position_x, position_y=position_y, status = status, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y)
 
 class NormalBullet(Bullet):
-    def __init__(self, damage=10):
-        super().__init__(bullet_type="NormalBullet", damage=damage)
+    def __init__(self, image, position_x, position_y, damage=10, status=Status.READY, name="NormalBullet", health=100, height=256, width=256, speed_x=5, speed_y=5):
+        super().__init__(bullet_type="NormalBullet", damage=damage, image=image, position_x=position_x, position_y=position_y, status = status, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y)
         
