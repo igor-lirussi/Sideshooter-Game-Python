@@ -1,3 +1,4 @@
+from cell import Cell 
 
 class Booster:
     """ generic powerup """
