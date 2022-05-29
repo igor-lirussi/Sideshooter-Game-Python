@@ -10,6 +10,7 @@ from pygame.locals import(
     K_ESCAPE,
     QUIT,
 )
+from colors import Colors
 from whitebloodcell import WhiteBloodCell
 from bullet import *
 from virus import *
@@ -24,9 +25,6 @@ BULLET_NUMBER = 3
 ENEMY_SIZE = 30
 ENEMY_SPEED = 3
 ENEMY_NUMBER = 5
-#colors
-BLACK = 0, 0, 0
-
 
 #initialize modules
 pygame.init()
@@ -58,9 +56,8 @@ game_elements = game_elements + bullets
 #create enemies
 enemies = []
 for num_enemy in range(ENEMY_NUMBER):
-    e = Omicron(image="virus.png", position_x=random.randint(WIDTH, 2*WIDTH), position_y=random.randint(0, WIDTH-ENEMY_SIZE), height=ENEMY_SIZE, width=ENEMY_SIZE, speed_x=ENEMY_SPEED, speed_y=ENEMY_SPEED)
+    e = Omicron(image="virus.png", position_x=random.randint(WIDTH, 2*WIDTH), position_y=random.randint(0, HEIGHT-ENEMY_SIZE), height=ENEMY_SIZE, width=ENEMY_SIZE, speed_x=ENEMY_SPEED, speed_y=ENEMY_SPEED)
     enemies.append(e)
-    print(e)
 game_elements = game_elements + enemies
 
 
@@ -73,7 +70,7 @@ while True:
         if (event.type==pygame.QUIT) or (event.type==pygame.KEYDOWN and event.key==K_ESCAPE): 
             #closing game
             fadeout = pygame.Surface(SIZE).convert()
-            fadeout.fill(BLACK)
+            fadeout.fill(Colors.BLACK)
             for i in range(90):
                 pygame.time.delay(10)
                 fadeout.set_alpha(i)
@@ -111,7 +108,7 @@ while True:
 
     # DRAW 
     #draw backround in black
-    screen.fill(BLACK)
+    screen.fill(Colors.BLACK)
     #draw game_elements on screen
     for elem in game_elements:
         elem.draw(screen)

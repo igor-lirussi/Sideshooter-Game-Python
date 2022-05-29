@@ -1,4 +1,6 @@
 from cell import Cell
+import pygame 
+from colors import Colors
 
 #inheritance from Cell class
 class Virus(Cell):
@@ -22,6 +24,12 @@ class Virus(Cell):
             self.position_x = self.initial_pos_x
             self.position_y = self.initial_pos_y
 
+    def draw(self, screen):
+        super().draw(screen)
+        #draw also health
+        #on the cell 
+        pygame.draw.line(screen, Colors.GREEN_ALPHA, (int(self.position_x), int(self.position_y)), (int(self.position_x + (self.width*(self.health/self.MAX_HEALTH))), int(self.position_y)), 3)
+     
     def __str__(self):
         #string returned from the parent constructor plus the new properties
         return super().__str__() + " virus type: {} damage: {}".format(self.virus_type, self.damage)

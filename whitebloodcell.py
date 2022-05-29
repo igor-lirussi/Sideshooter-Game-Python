@@ -1,7 +1,6 @@
 import pygame
 from cell import Cell
-
-GREEN = (0,255, 0)
+from colors import Colors
 
 #inheritance from Cell class
 class WhiteBloodCell(Cell):
@@ -18,4 +17,8 @@ class WhiteBloodCell(Cell):
     def draw(self, screen):
         super().draw(screen)
         #draw also health
-        pygame.draw.line(screen, GREEN, (int(self.position_x), int(self.position_y)), (int(self.position_x + (self.width*(self.health/self.MAX_HEALTH))), int(self.position_y)), 3)
+        #on the cell 
+        #pygame.draw.line(screen, Colors.GREEN, (int(self.position_x), int(self.position_y)), (int(self.position_x + (self.width*(self.health/self.MAX_HEALTH))), int(self.position_y)), 3)
+        #on the screen
+        window_size=pygame.display.get_window_size()[0]
+        pygame.draw.line(screen, Colors.GREEN, (window_size/2, 5), (int(window_size/2 - (window_size/3*(self.health/self.MAX_HEALTH))), 5), 3)
