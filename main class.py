@@ -27,6 +27,7 @@ ENEMY_SPEED = 3
 ENEMY_NUMBER = 5
 
 #initialize modules
+pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -45,6 +46,9 @@ game_elements = []
 #create player
 player = WhiteBloodCell('wbc.png', position_x=20, position_y=20, height=PLAYER_SIZE, width=PLAYER_SIZE, speed_x=PLAYER_SPEED, speed_y=PLAYER_SPEED)
 game_elements.append(player)
+#for collision
+Playergroup = pygame.sprite.Group()
+Playergroup.add(player)
 
 #create bullets
 bullets = []
@@ -61,11 +65,11 @@ for num_enemy in range(ENEMY_NUMBER):
 game_elements = game_elements + enemies
 
 
-#Game Loop
-while True:
+#Game Loop (while 1 saves one operation instead of while true)
+while 1: 
     clock.tick(60) #FPS
 
-    # EVENTS
+    # EVENTS (get input)
     for event in pygame.event.get():
         if (event.type==pygame.QUIT) or (event.type==pygame.KEYDOWN and event.key==K_ESCAPE): 
             #closing game
@@ -83,9 +87,9 @@ while True:
 
         #even triggered only on key press
         if event.type == pygame.KEYDOWN:
-            #KEY is V (shoot)
-            if event.key == pygame.K_v:
-                player_pos = player.get_position()
+            #KEY is V (shoot) or SPACE
+            if event.key == pygame.K_v or event.key == pygame.K_SPACE:
+                player_pos = player.get_position()  
                 for b in bullets:
                     if b.is_ready():
                         b.fire(player_pos[0]+PLAYER_SIZE, player_pos[1]+(PLAYER_SIZE-BULLET_SIZE)/2)
@@ -102,11 +106,12 @@ while True:
     if keyboardstate[K_DOWN]:
         player.down()       
 
-    # MOVE
+
+    # MOVE (update)
     for elem in game_elements:
         elem.move_autonomously()
 
-    # DRAW 
+    # DRAW (render)
     #draw backround in black
     screen.fill(Colors.BLACK)
     #draw game_elements on screen

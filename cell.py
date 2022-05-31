@@ -16,12 +16,12 @@ class Cell:
         self.speed_x = speed_x
         self.speed_y = speed_y
 
-        #creates surface, loading image, and creating a faster copy considering transparency
+        #creates surface, loading image, and creating a faster copy considering transparency (alpha)
         self.cell_surface = pygame.image.load(os.path.join('img', self.image)).convert_alpha()
         #scale to desired size
         self.cell_surface = pygame.transform.smoothscale(self.cell_surface, (self.width, self.height))
-        #get rectangle around player, 0,0 512, 512
-        #cell_rect = cell_surface.get_rect()
+        #get rectangle around for collision detection <rect(0, 0, 60, 60)>
+        cell_rect = self.cell_surface.get_rect()
         #print(cell_rect) 
 
     def draw(self, screen):
