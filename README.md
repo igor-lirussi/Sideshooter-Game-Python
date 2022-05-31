@@ -14,10 +14,10 @@ A complete Guide
 
 Physics with spheres and radious collider
  http://www.youtube.com/watch?v=7AKatTpNSNQ&list=PLE3D1A71BB598FEF6
-Sentdex calculates box boundaries 
+Sentdex calculates box boundaries (but only vertical)
  https://www.youtube.com/playlist?list=PLQVvvaa0QuDdLkP8MrOXLe_rKuf6r80KO
-Simple Sidescrolling Shooter in Pygame (checking hardcoded distance)
+Simple Sidescrolling Shooter in Pygame (checking hardcoded distance between points)
  https://www.youtube.com/watch?v=MvQU2ZVfSOo
 
 Checking the examples in the pygame repo
- https://github.com/pygame/pygame/blob/5db0e25ea961a7a8aadca94a11d7ca23439eb10d/examples/aliens.py#L79
+ https://github.com/pygame/pygame/blob/main/examples/aliens.py

@@ -40,31 +40,31 @@ icon = pygame.image.load(os.path.join('img', 'wbc.png')).convert_alpha()
 icon = pygame.transform.smoothscale(icon, (64, 64))
 pygame.display.set_icon(icon)
 
-#create game_elements to be drawn array
-game_elements = []
+#create game_elements group
+game_elements_group = pygame.sprite.Group()
 
 #create player
 player = WhiteBloodCell('wbc.png', position_x=20, position_y=20, height=PLAYER_SIZE, width=PLAYER_SIZE, speed_x=PLAYER_SPEED, speed_y=PLAYER_SPEED)
-game_elements.append(player)
-#for collision
-Playergroup = pygame.sprite.Group()
-Playergroup.add(player)
+game_elements_group.add(player)
+
 
 #create bullets
-bullets = []
+bullets_group = pygame.sprite.Group()
 for num_bullet in range(BULLET_NUMBER):
     b = NormalBullet("wbc.png", position_x=WIDTH/2+BULLET_SIZE*num_bullet, position_y=5, damage=20, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
-    bullets.append(b)
-game_elements = game_elements + bullets
+    bullets_group.add(b)
+    game_elements_group.add(b)
     
 #create enemies
-enemies = []
+enemies_group = pygame.sprite.Group()
 for num_enemy in range(ENEMY_NUMBER):
     e = Omicron(image="virus.png", position_x=random.randint(WIDTH, 2*WIDTH), position_y=random.randint(0, HEIGHT-ENEMY_SIZE), height=ENEMY_SIZE, width=ENEMY_SIZE, speed_x=ENEMY_SPEED, speed_y=ENEMY_SPEED)
-    enemies.append(e)
-game_elements = game_elements + enemies
+    enemies_group.add(e)
+    game_elements_group.add(e)
 
 
+for elem in game_elements_group:
+    print(elem)
 #Game Loop (while 1 saves one operation instead of while true)
 while 1: 
     clock.tick(60) #FPS
@@ -79,7 +79,7 @@ while 1:
                 pygame.time.delay(10)
                 fadeout.set_alpha(i)
                 screen.blit(fadeout, (0, 0))
-                pygame.display.update()
+                pygame.display.update() #if no rectagle passed, updates the whole display, like flip()
             if pygame.mixer:
                 pygame.mixer.music.fadeout(1000)
             pygame.quit()
@@ -108,14 +108,27 @@ while 1:
 
 
     # MOVE (update)
-    for elem in game_elements:
+    for elem in game_elements_group:
         elem.move_autonomously()
+
+    # COLLISION DETECTION
+    # update rectangle position for every game object
+    ## Note: the self.rect is used for collisions, but since we used position_x and position_y when moving, this is not updated
+    ## moving the rectangle and drawing the sprite based on it's position is a faster approach but less understandable in the code
+    for elem in game_elements_group:
+        elem.update_rect()
+
+    #check collision
+    if pygame.sprite.spritecollideany(player, enemies_group):
+        print("killed")
+        pygame.time.delay(100)
+
 
     # DRAW (render)
     #draw backround in black
     screen.fill(Colors.BLACK)
-    #draw game_elements on screen
-    for elem in game_elements:
+    #draw game_elements_group on screen
+    for elem in game_elements_group:
         elem.draw(screen)
     #makes everything we have drawn on the screen Surface become Visible
     pygame.display.flip()

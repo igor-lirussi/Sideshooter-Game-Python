@@ -1,10 +1,11 @@
 import pygame
 import os
 
-class Cell:
+class Cell(pygame.sprite.Sprite):
     """ a generic Cell in the human body, a base game object. Image and Postions are required """
     #to initialize the class with arguments, some if not provided are default
     def __init__(self, image, position_x, position_y, name="Cell", health=100, height=256, width=256, speed_x=1, speed_y=1):
+        super().__init__() 
         self.image = image
         self.position_x = position_x
         self.position_y = position_y
@@ -20,9 +21,16 @@ class Cell:
         self.cell_surface = pygame.image.load(os.path.join('img', self.image)).convert_alpha()
         #scale to desired size
         self.cell_surface = pygame.transform.smoothscale(self.cell_surface, (self.width, self.height))
-        #get rectangle around for collision detection <rect(0, 0, 60, 60)>
-        cell_rect = self.cell_surface.get_rect()
-        #print(cell_rect) 
+        #get rectangle around for collision detection es:<rect(0, 0, 60, 60)>
+        #has to be called "rect"
+        self.rect = self.cell_surface.get_rect()
+        #move the rectangle to the current position of the obj
+        self.rect.update(self.position_x, self.position_y,self.width, self.height)
+        #print(self.rect) 
+
+    def update_rect(self):
+        self.rect.update(self.position_x, self.position_y,self.width, self.height)
+
 
     def draw(self, screen):
         #draw itself on screen
