@@ -23,7 +23,7 @@ class WhiteBloodCell(Cell):
         window_size=pygame.display.get_window_size()[0]
         health_x1 = window_size/2
         health_y1 = 15
-        health_x2 = 30
+        health_x2 = window_size/6
         health_y2 = 15
         pygame.draw.line(screen, Colors.BLACK, (health_x1 , health_y1), (int(health_x2), health_y2), 20)
         pygame.draw.line(screen, Colors.GREEN, (health_x1 , health_y1), (int(health_x1 - ((health_x1-health_x2)*(self.health/self.MAX_HEALTH))), health_y2), 20)

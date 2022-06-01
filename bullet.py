@@ -50,11 +50,11 @@ class Bullet(Cell):
     def is_ready(self):
         return self.status == Status.READY
 
-class Rocket(Bullet):
-    def __init__(self, image, position_x, position_y, damage=90, status=Status.READY, name="Rocket", health=100, height=256, width=256, speed_x=1, speed_y=1):
-        super().__init__(bullet_type="Rocket", damage=damage, image=image, position_x=position_x, position_y=position_y, status = status, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y)
-
 class NormalBullet(Bullet):
-    def __init__(self, image, position_x, position_y, damage=10, status=Status.READY, name="NormalBullet", health=100, height=256, width=256, speed_x=5, speed_y=5):
+    def __init__(self, image, position_x, position_y, damage=20, status=Status.READY, name="NormalBullet", health=100, height=256, width=256, speed_x=5, speed_y=5):
         super().__init__(bullet_type="NormalBullet", damage=damage, image=image, position_x=position_x, position_y=position_y, status = status, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y)
         
+class Rocket(Bullet):
+    def __init__(self, image, position_x, position_y, damage=50, status=Status.READY, name="Rocket", health=100, height=256, width=256, speed_x=1, speed_y=1):
+        super().__init__(bullet_type="Rocket", damage=damage, image=image, position_x=position_x, position_y=position_y, status = status, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y)
+

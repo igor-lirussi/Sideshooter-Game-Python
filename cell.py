@@ -84,4 +84,4 @@ class Cell(pygame.sprite.Sprite):
        
     #to print the object
     def __str__(self):
-    	return "Cell named '{}' at: {},{} health: {} speed: {},{}".format(self.name, self.position_x, self.position_y, self.health, self.speed_x, self.speed_y)
+    	return "Cell named '{}' at: {},{} Health: {} Speed: {},{}".format(self.name, self.position_x, self.position_y, self.health, self.speed_x, self.speed_y)

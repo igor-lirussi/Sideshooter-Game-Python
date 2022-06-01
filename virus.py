@@ -40,11 +40,11 @@ class Virus(Cell):
      
     def __str__(self):
         #string returned from the parent constructor plus the new properties
-        return super().__str__() + " virus type: {} damage: {}".format(self.virus_type, self.damage)
+        return super().__str__() + " Virus-type: {} Damage: {}".format(self.virus_type, self.damage)
 
 #inheritance from Virus class, name can be changed from the default one, virus_type is fixed
 class Covid19(Virus):
-    def __init__(self, image, position_x, position_y, name="Covid19", health=70, height=256, width=256, speed_x=0, speed_y=0, damage=10):
+    def __init__(self, image, position_x, position_y, name="Covid19", health=40, height=256, width=256, speed_x=0, speed_y=0, damage=10):
         super().__init__(virus_type="Covid19", image=image, position_x=position_x, position_y=position_y, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y, damage=damage)
 
 class Omicron(Virus):
@@ -52,5 +52,5 @@ class Omicron(Virus):
         super().__init__(virus_type="Omicron", image=image, position_x=position_x, position_y=position_y, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y, damage=damage)
 
 class Delta(Virus):
-    def __init__(self, image, position_x, position_y, name="Delta", health=90, height=256, width=256, speed_x=0, speed_y=0, damage=30):
+    def __init__(self, image, position_x, position_y, name="Delta", health=120, height=256, width=256, speed_x=0, speed_y=0, damage=50):
         super().__init__(virus_type="Delta", image=image, position_x=position_x, position_y=position_y, name=name, health=health, height=height, width=width, speed_x=speed_x, speed_y=speed_y, damage=damage)

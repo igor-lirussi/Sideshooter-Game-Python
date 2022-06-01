@@ -55,16 +55,28 @@ game_elements_group.add(player)
 #create bullets
 bullets_group = pygame.sprite.Group()
 for num_bullet in range(BULLET_NUMBER):
-    b = NormalBullet("wbc.png", position_x=WIDTH/2+30+BULLET_SIZE*num_bullet, position_y=5, damage=20, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
+    b = NormalBullet("wbc.png", position_x=WIDTH/2+30+BULLET_SIZE*num_bullet, position_y=5, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
     bullets_group.add(b)
     game_elements_group.add(b)
     
 #create enemies
 enemies_group = pygame.sprite.Group()
 for num_enemy in range(ENEMY_NUMBER):
-    e = Omicron(image="virus.png", position_x=random.randint(WIDTH, 2*WIDTH), position_y=random.randint(0, HEIGHT-ENEMY_SIZE), height=ENEMY_SIZE, width=ENEMY_SIZE, speed_x=ENEMY_SPEED, speed_y=ENEMY_SPEED)
+    e = Covid19(image="virus.png", position_x=random.randint(WIDTH, 2*WIDTH), position_y=random.randint(0, HEIGHT-ENEMY_SIZE), height=ENEMY_SIZE, width=ENEMY_SIZE, speed_x=ENEMY_SPEED)
     enemies_group.add(e)
     game_elements_group.add(e)
+
+omic_size=50
+om_en = Omicron(image="virus2.png", position_x=random.randint(2*WIDTH, 3*WIDTH), position_y=random.randint(0, HEIGHT-omic_size), height=omic_size, width=omic_size, speed_x=4)
+enemies_group.add(om_en)
+game_elements_group.add(om_en)
+
+delta_size = 80
+del_en = Delta(image="virus3.png", position_x=random.randint(3*WIDTH, 4*WIDTH), position_y=random.randint(0, HEIGHT-delta_size), height=delta_size, width=delta_size, speed_x=2)
+enemies_group.add(del_en)
+game_elements_group.add(del_en)
+
+
 
 
 for elem in game_elements_group:
@@ -125,7 +137,7 @@ while 1:
     #check collisions plyer vs enemies
     enemy_collided_player = pygame.sprite.spritecollideany(player, enemies_group)
     if enemy_collided_player:
-        print("health loss")
+        print("health loss: {}".format(enemy_collided_player.damage))
         player.lose_health(enemy_collided_player.damage)
         enemy_collided_player.kill()
         pygame.time.delay(100)
@@ -135,18 +147,18 @@ while 1:
     if collisions_bull_enem:
         for bullet in collisions_bull_enem:
             for enemy in collisions_bull_enem[bullet]:
-                enemy.kill()
+                enemy.lose_health(bullet.damage)
                 bullet.kill()
     
 
 
     # DRAW (render)
-    #draw background in black
+    #draw background 
     screen.fill(Colors.BLACK)
     background.draw(screen)
     #draw game_elements_group on screen
     for elem in game_elements_group:
         elem.draw(screen)
-    #makes everything we have drawn on the screen Surface become Visible
+    #makes everything we have drawn on the Screen Surface become Visible
     pygame.display.flip()
 
