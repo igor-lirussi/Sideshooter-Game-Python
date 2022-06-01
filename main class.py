@@ -16,7 +16,7 @@ from bullet import *
 from virus import *
 
 #MACROS
-SIZE = WIDTH, HEIGHT = 720, 480
+SIZE = WIDTH, HEIGHT = 1280, 720
 PLAYER_SIZE = 60
 PLAYER_SPEED = 5
 BULLET_SIZE = 25
@@ -90,7 +90,7 @@ while 1:
             #KEY is V (shoot) or SPACE
             if event.key == pygame.K_v or event.key == pygame.K_SPACE:
                 player_pos = player.get_position()  
-                for b in bullets:
+                for b in bullets_group:
                     if b.is_ready():
                         b.fire(player_pos[0]+PLAYER_SIZE, player_pos[1]+(PLAYER_SIZE-BULLET_SIZE)/2)
                         break
@@ -118,10 +118,22 @@ while 1:
     for elem in game_elements_group:
         elem.update_rect()
 
-    #check collision
-    if pygame.sprite.spritecollideany(player, enemies_group):
-        print("killed")
+    #check collisions plyer vs enemies
+    enemy_collided_player = pygame.sprite.spritecollideany(player, enemies_group)
+    if enemy_collided_player:
+        print("health loss")
+        player.lose_health(enemy_collided_player.damage)
+        enemy_collided_player.kill()
         pygame.time.delay(100)
+
+    #check collisions bullets vs enemies
+    collisions_bull_enem = pygame.sprite.groupcollide(bullets_group, enemies_group, False, False)
+    if collisions_bull_enem:
+        for bullet in collisions_bull_enem:
+            for enemy in collisions_bull_enem[bullet]:
+                enemy.kill()
+                bullet.kill()
+    
 
 
     # DRAW (render)

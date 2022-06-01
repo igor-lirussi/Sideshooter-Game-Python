@@ -15,14 +15,22 @@ class Virus(Cell):
         self.initial_pos_x = position_x
         self.initial_pos_y = position_y
 
+    def kill(self):
+        super().kill()
+        self.reset()
+
+    def reset(self):
+        self.health = self.MAX_HEALTH
+        #move back to initial position
+        self.position_x = self.initial_pos_x
+        self.position_y = self.initial_pos_y
+
     def move_autonomously(self):
         #move left
         self.position_x=self.position_x-self.speed_x
         #if out of the screen
         if self.position_x<0:
-            #move back to initial position
-            self.position_x = self.initial_pos_x
-            self.position_y = self.initial_pos_y
+            self.kill()
 
     def draw(self, screen):
         super().draw(screen)

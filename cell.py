@@ -69,9 +69,18 @@ class Cell(pygame.sprite.Sprite):
         print("move_autonomously not implemented")
         #to be overridden
 
+    def lose_health(self, loss):
+        self.health = self.health - loss
+        if not self.is_alive():
+            self.kill()
+        return self.is_alive()
+
     def kill(self):
         self.health=0
         return "cell killed"
+
+    def is_alive(self):
+        return self.health > 0
        
     #to print the object
     def __str__(self):
