@@ -14,6 +14,7 @@ from colors import Colors
 from whitebloodcell import WhiteBloodCell
 from bullet import *
 from virus import *
+from background import Background
 
 #MACROS
 SIZE = WIDTH, HEIGHT = 1280, 720
@@ -40,6 +41,9 @@ icon = pygame.image.load(os.path.join('img', 'wbc.png')).convert_alpha()
 icon = pygame.transform.smoothscale(icon, (64, 64))
 pygame.display.set_icon(icon)
 
+#create background
+background = Background(image="bg.jpg", width=WIDTH, height=HEIGHT)
+
 #create game_elements group
 game_elements_group = pygame.sprite.Group()
 
@@ -51,7 +55,7 @@ game_elements_group.add(player)
 #create bullets
 bullets_group = pygame.sprite.Group()
 for num_bullet in range(BULLET_NUMBER):
-    b = NormalBullet("wbc.png", position_x=WIDTH/2+BULLET_SIZE*num_bullet, position_y=5, damage=20, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
+    b = NormalBullet("wbc.png", position_x=WIDTH/2+30+BULLET_SIZE*num_bullet, position_y=5, damage=20, height=BULLET_SIZE, width=BULLET_SIZE, speed_x=BULLET_SPEED)
     bullets_group.add(b)
     game_elements_group.add(b)
     
@@ -137,8 +141,9 @@ while 1:
 
 
     # DRAW (render)
-    #draw backround in black
+    #draw background in black
     screen.fill(Colors.BLACK)
+    background.draw(screen)
     #draw game_elements_group on screen
     for elem in game_elements_group:
         elem.draw(screen)
