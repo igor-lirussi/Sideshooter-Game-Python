@@ -13,6 +13,8 @@ It's a simple example on how to use OOP principles.
 	- Autonomous
 - Collisions
 - Game Mechanics
+- Health system, score and stats
+- Music
 
 ## Result
 ![Result](./img/result.gif)
