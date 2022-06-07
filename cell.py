@@ -16,6 +16,9 @@ class Cell(pygame.sprite.Sprite):
         self.width = width
         self.speed_x = speed_x
         self.speed_y = speed_y
+        #save the initial creation position
+        self.initial_pos_x = position_x
+        self.initial_pos_y = position_y
 
         #creates surface, loading image, and creating a faster copy considering transparency (alpha)
         self.cell_surface = pygame.image.load(os.path.join('img', self.image)).convert_alpha()
@@ -73,7 +76,19 @@ class Cell(pygame.sprite.Sprite):
         self.health = self.health - loss
         if not self.is_alive():
             self.kill()
+            self.reset()
         return self.is_alive()
+
+    def gain_health(self, gain):
+        self.health = self.health + gain
+        if self.health > 100:
+            self.health = 100
+
+    def reset(self):
+        self.health = self.MAX_HEALTH
+        #move back to initial position
+        self.position_x = self.initial_pos_x
+        self.position_y = self.initial_pos_y
 
     def kill(self):
         self.health=0

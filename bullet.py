@@ -15,24 +15,15 @@ class Bullet(Cell):
         self.bullet_type = bullet_type
         self.damage = damage
         self.status = status
-        #save the initial creation position
-        self.initial_pos_x = position_x
-        self.initial_pos_y = position_y
 
     def __str__(self):
         #string returned from the parent constructor plus the new properties
-        return super().__str__() + " Bullet type '{}' damage {} ".format(self.bullet_type, self.damage)
-        
-
-    def kill(self):
-        super().kill()
-        self.reset()
+        return super().__str__() + " Bullet-type '{}' damage {} ".format(self.bullet_type, self.damage)
+    
 
     def reset(self):
+        super().reset()
         self.status = Status.READY
-        #move back to initial position
-        self.position_x = self.initial_pos_x
-        self.position_y = self.initial_pos_y
 
     def move_autonomously(self):
         if self.status == Status.FIRED:
@@ -40,7 +31,7 @@ class Bullet(Cell):
             self.position_x=self.position_x+self.speed_x
         #if out of the screen
         if self.position_x > pygame.display.get_window_size()[0]:
-            self.kill()
+            self.reset()
 
     def fire(self, position_x, position_y):
         self.status = Status.FIRED

@@ -11,26 +11,14 @@ class Virus(Cell):
         #viruses have also type and damage properties
         self.virus_type = virus_type
         self.damage = damage
-        #save the initial creation position
-        self.initial_pos_x = position_x
-        self.initial_pos_y = position_y
 
-    def kill(self):
-        super().kill()
-        self.reset()
-
-    def reset(self):
-        self.health = self.MAX_HEALTH
-        #move back to initial position
-        self.position_x = self.initial_pos_x
-        self.position_y = self.initial_pos_y
 
     def move_autonomously(self):
         #move left
         self.position_x=self.position_x-self.speed_x
         #if out of the screen
         if self.position_x<0:
-            self.kill()
+            self.reset()
 
     def draw(self, screen):
         super().draw(screen)
