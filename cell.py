@@ -72,11 +72,12 @@ class Cell(pygame.sprite.Sprite):
         print("move_autonomously not implemented")
         #to be overridden
 
-    def lose_health(self, loss):
+    def lose_health(self, loss, reset_at_death=True):
         self.health = self.health - loss
         if not self.is_alive():
             self.kill()
-            self.reset()
+            if reset_at_death:
+                self.reset()
         return self.is_alive()
 
     def gain_health(self, gain):

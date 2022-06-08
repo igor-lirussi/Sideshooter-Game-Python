@@ -25,12 +25,12 @@ BULLET_SIZE = 25
 BULLET_SPEED = 5
 BULLET_NUMBER = 3
 ENEMY_SIZE = 30
-OMICRON_SIZE=50
+OMICRON_SIZE = 50
 DELTA_SIZE = 80
 ENEMY_SPEED = 3
 ENEMY_NUMBER = 5
-POWERUP_SIZE=50
-POWERUP_SPEED=4
+POWERUP_SIZE = 50
+POWERUP_SPEED = 5
 
 #initialize modules
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -47,6 +47,8 @@ icon = pygame.transform.smoothscale(icon, (64, 64))
 pygame.display.set_icon(icon)
 
 #create background
+font = pygame.font.SysFont(None, 24)
+font_big = pygame.font.SysFont(None, 64)
 background = Background(image="bg.jpg", width=WIDTH, height=HEIGHT)
 
 print("\t #### CREATING ELEMENTS ####")
@@ -82,11 +84,11 @@ game_elements_group.add(del_enemy)
 
 #create powerups
 powerup_group = pygame.sprite.Group()
-mask = Mask(image="mask.png", position_x=random.randint(3*WIDTH, 6*WIDTH), position_y=random.randint(0, HEIGHT-POWERUP_SIZE), height=POWERUP_SIZE, width=POWERUP_SIZE, speed_x=POWERUP_SPEED)
+mask = Mask(image="mask.png", position_x=random.randint(6*WIDTH, 8*WIDTH), position_y=random.randint(0, HEIGHT-POWERUP_SIZE), height=POWERUP_SIZE, width=POWERUP_SIZE, speed_x=POWERUP_SPEED)
 powerup_group.add(mask)
 game_elements_group.add(mask)
 
-vaccine = Vaccine(image="vaccine.png", position_x=random.randint(2*WIDTH, 4*WIDTH), position_y=random.randint(0, HEIGHT-POWERUP_SIZE), height=POWERUP_SIZE, width=POWERUP_SIZE, speed_x=POWERUP_SPEED)
+vaccine = Vaccine(image="vaccine.png", position_x=random.randint(4*WIDTH, 6*WIDTH), position_y=random.randint(0, HEIGHT-POWERUP_SIZE), height=POWERUP_SIZE, width=POWERUP_SIZE, speed_x=POWERUP_SPEED)
 powerup_group.add(vaccine)
 game_elements_group.add(vaccine)
 
@@ -154,6 +156,7 @@ while 1:
     if enemy_collided_player:
         print("health loss: {}".format(enemy_collided_player.damage))
         player.lose_health(enemy_collided_player.damage)
+        player.gain_score(enemy_collided_player.MAX_HEALTH)
         enemy_collided_player.reset()
         #pygame.time.delay(100)
 
@@ -163,6 +166,7 @@ while 1:
         for bullet in collisions_bull_enem:
             for enemy in collisions_bull_enem[bullet]:
                 enemy.lose_health(bullet.damage)
+                player.gain_score(bullet.damage)
                 bullet.reset()
 
     #check collisions bullets vs powerups
@@ -182,11 +186,32 @@ while 1:
         player.set_protected_sec(powerup_collided_player.collision_protection_time)
         powerup_collided_player.reset()
 
+    #check health
+    if not player.is_alive():
+        #closing game
+        gameover_surface = font_big.render(f"GAME OVER", True, Colors.RED)
+        gameover_rect = gameover_surface.get_rect(center=(WIDTH/2, HEIGHT/3))
+        score_surface = font.render(f"Score: {player.score}", True, Colors.WHITE)
+        score_rect = score_surface.get_rect(center=(WIDTH/2, HEIGHT/2))
+        fadeout = pygame.Surface(SIZE).convert()
+        fadeout.fill(Colors.BLACK)
+        for i in range(90):
+            pygame.time.delay(20)
+            screen.blit(gameover_surface, gameover_rect)
+            screen.blit(score_surface, score_rect)
+            fadeout.set_alpha(i)
+            screen.blit(fadeout, (0, 0))
+            pygame.display.update()
+        print("Resetting player")
+        player.reset()
 
     # DRAW (render)
-    #draw background 
     screen.fill(Colors.BLACK)
+    #draw background 
     background.draw(screen)
+    #draw score
+    score_surface = font.render(f"Score: {player.score}", True, Colors.WHITE)
+    screen.blit(score_surface, (32,10))
     #draw game_elements_group on screen
     for elem in game_elements_group:
         elem.draw(screen)
