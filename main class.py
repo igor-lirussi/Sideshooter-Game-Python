@@ -15,7 +15,7 @@ from whitebloodcell import WhiteBloodCell
 from bullet import *
 from virus import *
 from booster import *
-from background import Background
+from background import ScrollingBackground
 
 #MACROS
 SIZE = WIDTH, HEIGHT = 1280, 720
@@ -33,9 +33,15 @@ POWERUP_SIZE = 50
 POWERUP_SPEED = 5
 
 #initialize modules
-pygame.mixer.pre_init(44100, 16, 2, 4096)
+pygame.mixer.pre_init(44100, 32, 2, 4096)
 pygame.init()
 clock = pygame.time.Clock()
+
+#music play
+if pygame.mixer:
+    music_path = os.path.join('sounds', "bgm.wav")
+    pygame.mixer.music.load(music_path)
+    pygame.mixer.music.play(-1) #-1 reapeat
 
 #create a graphical window 
 screen = pygame.display.set_mode(SIZE)
@@ -46,10 +52,13 @@ icon = pygame.image.load(os.path.join('img', 'wbc.png')).convert_alpha()
 icon = pygame.transform.smoothscale(icon, (64, 64))
 pygame.display.set_icon(icon)
 
-#create background
+#fonts
 font = pygame.font.SysFont(None, 24)
 font_big = pygame.font.SysFont(None, 64)
-background = Background(image="bg.jpg", width=WIDTH, height=HEIGHT)
+
+#create background
+background = ScrollingBackground(image="bg.jpg", width=WIDTH, height=HEIGHT)
+backgr_particles = ScrollingBackground(image="particles_red.png", width=WIDTH, height=HEIGHT, speed=2)
 
 print("\t #### CREATING ELEMENTS ####")
 #create game_elements group
@@ -154,7 +163,7 @@ while 1:
     #check collisions plyer vs enemies
     enemy_collided_player = pygame.sprite.spritecollideany(player, enemies_group)
     if enemy_collided_player:
-        print("health loss: {}".format(enemy_collided_player.damage))
+        print("Health loss: {}".format(enemy_collided_player.damage))
         player.lose_health(enemy_collided_player.damage)
         player.gain_score(enemy_collided_player.MAX_HEALTH)
         enemy_collided_player.reset()
@@ -188,6 +197,8 @@ while 1:
 
     #check health
     if not player.is_alive():
+        if pygame.mixer:
+            pygame.mixer.music.fadeout(1000)
         #closing game
         gameover_surface = font_big.render(f"GAME OVER", True, Colors.RED)
         gameover_rect = gameover_surface.get_rect(center=(WIDTH/2, HEIGHT/3))
@@ -208,7 +219,11 @@ while 1:
     # DRAW (render)
     screen.fill(Colors.BLACK)
     #draw background 
+    background.move()
     background.draw(screen)
+    #dreaw background particles
+    backgr_particles.move()
+    backgr_particles.draw(screen)
     #draw score
     score_surface = font.render(f"Score: {player.score}", True, Colors.WHITE)
     screen.blit(score_surface, (32,10))

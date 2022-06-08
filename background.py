@@ -3,7 +3,7 @@ import os
 
 class Background():
     #Constructor 
-    def __init__(self, image, width, height, speed = 1):
+    def __init__(self, image, width, height, speed = 0):
         self.width = width
         self.height = height
         self.speed = speed
@@ -16,6 +16,9 @@ class Background():
 
     def move(self):
         self.rect.move_ip(-self.speed,0)
+        #if position is out of the screen 
+        if self.rect[0]<-self.width: 
+            self.rect[0]=0
 
     def draw(self, screen):
         #draw itself on screen
@@ -23,3 +26,17 @@ class Background():
      
     def __str__(self):
         return "Background Image: {}".format(self.surface)
+
+
+
+
+class ScrollingBackground(Background):
+    #Constructor 
+    def __init__(self, image, width, height, speed = 1):
+        super().__init__(image, width, height, speed)
+    
+    def draw(self, screen):
+        #draw itself on screen
+        screen.blit(self.surface, self.rect)
+        #draw a copy on the position "itself moved on right its width"
+        screen.blit(self.surface, self.rect.move(self.width,0))
