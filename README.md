@@ -25,7 +25,7 @@ It's a simple example on how to use OOP principles.
 
 ## Run
 ```bash
-pyhton main class.py
+pyhton game.py
 ```
 
 ## Authors
