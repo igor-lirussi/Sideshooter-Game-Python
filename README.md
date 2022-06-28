@@ -56,3 +56,6 @@ Simple Sidescrolling Shooter in Pygame (checking hardcoded distance between poin
 
 Checking the examples in the pygame repo
  https://github.com/pygame/pygame/blob/main/examples/aliens.py
+ 
+Extra tutorials for scolling bg, parallax, menu and buttons
+ https://github.com/russs123/pygame_tutorials
