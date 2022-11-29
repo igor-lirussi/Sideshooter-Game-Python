@@ -24,9 +24,22 @@ It's a simple example on how to use OOP principles.
 - Pygame
 
 ## Run
+if your environment has the [`Requirements`](#requirements) you can start the game typing: 
 ```bash
 python game.py
 ```
+otherwise see the  [`Installation`](#installation) below
+
+## Installation
+in *Anaconda Prompt*:
+```bash
+conda create -n pygame python=3.10 #creates environment called "pygame" with python
+conda activate pygame  #activates the environment (you need to activate the environment every time)
+pip install pygame
+```
+
+## Class Diagram
+![ClassDiagram](./diagrams/SimpleClassDiagram.png)
 
 ## Authors
 * **Igor Lirussi** @ BOUN Boğaziçi University - CoLoRs Lab
