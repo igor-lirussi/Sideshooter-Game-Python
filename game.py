@@ -25,6 +25,7 @@ class Game():
         self.PLAYER_SIZE = 60
         self.PLAYER_SPEED = 5
         self.BULLET_SIZE = 25
+        self.ROCKET_SIZE = 35
         self.BULLET_SPEED = 5
         self.BULLET_NUMBER = 3
         self.ENEMY_SIZE = 30
@@ -73,10 +74,15 @@ class Game():
 
 
         #create bullets
+        self.bullets_and_rocket_group = pygame.sprite.Group()
+        self.r = Rocket("wbc2.png", position_x=self.WIDTH/2+80+self.ROCKET_SIZE, position_y=5, height=self.ROCKET_SIZE, width=self.ROCKET_SIZE, speed_x=2, speed_y=2)
+        self.bullets_and_rocket_group.add(self.r)
+        self.game_elements_group.add(self.r)
         self.bullets_group = pygame.sprite.Group()
         for num_bullet in range(self.BULLET_NUMBER):
             b = NormalBullet("wbc.png", position_x=self.WIDTH/2+30+self.BULLET_SIZE*num_bullet, position_y=5, height=self.BULLET_SIZE, width=self.BULLET_SIZE, speed_x=self.BULLET_SPEED)
             self.bullets_group.add(b)
+            self.bullets_and_rocket_group.add(b)
             self.game_elements_group.add(b)
             
         #create enemies
@@ -122,14 +128,19 @@ class Game():
                     self.reset()
                     self.close()
 
-                #even triggered only on key press
+                #event triggered only on key press
                 if event.type == pygame.KEYDOWN:
-                    #KEY is V (shoot) or SPACE
-                    if event.key == pygame.K_v or event.key == pygame.K_SPACE:
-                        player_pos = self.player.get_position()  
+                    player_pos = self.player.get_position()  
+                    #KEY is B (shoot) or SPACE
+                    if event.key == pygame.K_b or event.key == pygame.K_SPACE:
                         for b in self.bullets_group:
                             if b.is_ready():
                                 b.fire(player_pos[0]+self.PLAYER_SIZE, player_pos[1]+(self.PLAYER_SIZE-self.BULLET_SIZE)/2)
+                                break
+                    #KEY is V (shoot rocket)
+                    if event.key == pygame.K_v:
+                            if self.r.is_ready():
+                                self.r.fire(player_pos[0]+self.PLAYER_SIZE, player_pos[1]+(self.PLAYER_SIZE-self.BULLET_SIZE)/2)
                                 break
 
             #get keyboard state to understand the keys kept pressed
@@ -165,23 +176,21 @@ class Game():
                 #pygame.time.delay(100)
 
             #check collisions bullets vs enemies
-            collisions_bull_enem = pygame.sprite.groupcollide(self.bullets_group, self.enemies_group, False, False)
-            if collisions_bull_enem:
-                for bullet in collisions_bull_enem:
-                    for enemy in collisions_bull_enem[bullet]:
-                        print("Enemy hit. Health loss: {}".format(bullet.damage))
-                        enemy.lose_health(bullet.damage)
-                        self.player.gain_score(bullet.damage)
-                        bullet.reset()
+            collisions_bull_enem = pygame.sprite.groupcollide(self.bullets_and_rocket_group, self.enemies_group, False, False)
+            for bullet in collisions_bull_enem:
+                for enemy in collisions_bull_enem[bullet]:
+                    print("Enemy hit. Health loss: {}".format(bullet.damage))
+                    enemy.lose_health(bullet.damage)
+                    self.player.gain_score(bullet.damage)
+                    bullet.reset()
 
             #check collisions bullets vs powerups
-            collisions_bull_powerup = pygame.sprite.groupcollide(self.bullets_group, self.powerup_group, False, False)
-            if collisions_bull_powerup:
-                for bullet in collisions_bull_powerup:
-                    for powerup in collisions_bull_powerup[bullet]:
-                        print("Powerup hit. Health loss: {}".format(bullet.damage))
-                        powerup.lose_health(bullet.damage)
-                        bullet.reset()
+            collisions_bull_powerup = pygame.sprite.groupcollide(self.bullets_and_rocket_group, self.powerup_group, False, False)
+            for bullet in collisions_bull_powerup:
+                for powerup in collisions_bull_powerup[bullet]:
+                    print("Powerup hit. Health loss: {}".format(bullet.damage))
+                    powerup.lose_health(bullet.damage)
+                    bullet.reset()
 
 
             #check collisions player vs powerup
