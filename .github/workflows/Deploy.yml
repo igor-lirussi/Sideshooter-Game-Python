@@ -1,0 +1,64 @@
+name: Deploy
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  Assembly:
+    runs-on: windows-2022
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v3
+      - name: Setup Conda Environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          activate-environment: pygame_environment
+          environment-file: pygame_environment.yml
+      - name: Bash conda info
+        shell: bash -el {0}
+        run: |
+          conda info
+          conda list
+      - name: Bash create EXE
+        shell: bash -el {0}
+        run: |
+          pyinstaller game.py --onefile --windowed --name Sideshooter-Game-Python --distpath . --clean --icon img/icon.ico --collect-data img --collect-data sounds
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: ./Sideshooter-Game-Python.exe
+  UploadRelease:
+    needs: [Assembly]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone git repo
+        uses: actions/checkout@v3
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Artifacts
+      - name: Extract Date
+        shell: bash
+        id: extract_date
+        run: |
+          echo "::set-output name=DATE::Release_$(cat VERSION.md)_$(date +%F_%H-%M)"
+      - name: Print Output Step
+        run: echo ${{ steps.extract_date.outputs.DATE }}
+      - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          TAG="${{ steps.extract_date.outputs.DATE }}"
+          echo $TAG
+          MSG="${{ github.event.head_commit.message }}"
+          echo $MSG
+          hub release create -m "$TAG" "$TAG" || true
+          tree
+          ls
+          FILE="./Sideshooter-Game-Python.exe"
+          gh release upload "$TAG" "$FILE" --clobber

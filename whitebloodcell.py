@@ -4,6 +4,8 @@ from colors import Colors
 import time
 import os
 
+from resourcepath import resource_path
+
 #inheritance from Cell class
 class WhiteBloodCell(Cell):
     """ The player """
@@ -14,7 +16,7 @@ class WhiteBloodCell(Cell):
         self.score = 0
         self.protected_till = 0 # moment till which the player is protected
         #load bubble 
-        self.bubble_surface = pygame.image.load(os.path.join('img', "bubble.png")).convert_alpha()
+        self.bubble_surface = pygame.image.load(resource_path(os.path.join('img', "bubble.png"))).convert_alpha()
         #scale to desired size
         self.bubble_surface = pygame.transform.smoothscale(self.bubble_surface, (self.width, self.height))
 

@@ -17,6 +17,8 @@ from virus import *
 from booster import *
 from background import ScrollingBackground
 
+from resourcepath import resource_path
+
 class Game():
     """main Game"""
     def __init__(self):
@@ -44,7 +46,7 @@ class Game():
         #music play
         if pygame.mixer:
             music_path = os.path.join('sounds', "bgm.wav")
-            pygame.mixer.music.load(music_path)
+            pygame.mixer.music.load(resource_path(music_path))
             pygame.mixer.music.play(-1) #-1 reapeat
 
         #create a graphical window 
@@ -52,7 +54,7 @@ class Game():
         #caption
         pygame.display.set_caption("Sideshooter Game")
         #icon
-        icon = pygame.image.load(os.path.join('img', 'wbc.png')).convert_alpha()
+        icon = pygame.image.load(resource_path(os.path.join('img', 'wbc.png'))).convert_alpha()
         icon = pygame.transform.smoothscale(icon, (64, 64))
         pygame.display.set_icon(icon)
 
