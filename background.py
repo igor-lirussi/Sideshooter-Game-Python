@@ -1,6 +1,8 @@
 import pygame
 import os
 
+from resourcepath import resource_path
+
 class Background():
     #Constructor 
     def __init__(self, image, width, height, speed = 0):
@@ -8,7 +10,7 @@ class Background():
         self.height = height
         self.speed = speed
         #creates surface, loading image, and creating a faster copy considering transparency (alpha)
-        self.surface = pygame.image.load(os.path.join('img', image)).convert_alpha()
+        self.surface = pygame.image.load(resource_path(os.path.join('img', image))).convert_alpha()
         #scale to desired size
         self.surface = pygame.transform.smoothscale(self.surface, (self.width, self.height))
         #rectangle

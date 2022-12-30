@@ -1,6 +1,8 @@
 import pygame
 import os
 
+from resourcepath import resource_path
+
 class Cell(pygame.sprite.Sprite):
     """ a generic Cell in the human body, a base game object. Image and Postions are required """
     #to initialize the class with arguments, some if not provided are default
@@ -21,7 +23,7 @@ class Cell(pygame.sprite.Sprite):
         self.initial_pos_y = position_y
 
         #creates surface, loading image, and creating a faster copy considering transparency (alpha)
-        self.cell_surface = pygame.image.load(os.path.join('img', self.image)).convert_alpha()
+        self.cell_surface = pygame.image.load(resource_path(os.path.join('img', self.image))).convert_alpha()
         #scale to desired size
         self.cell_surface = pygame.transform.smoothscale(self.cell_surface, (self.width, self.height))
         #get rectangle around for collision detection es:<rect(0, 0, 60, 60)>
