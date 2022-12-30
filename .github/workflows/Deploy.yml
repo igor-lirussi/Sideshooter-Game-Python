@@ -15,6 +15,7 @@ jobs:
         with:
           miniconda-version: "latest"
           activate-environment: pygame_environment
+          environment-file: pygame_environment.yml
       - name: Bash conda info
         shell: bash -el {0}
         run: |
