@@ -1,6 +1,8 @@
 # Sideshooter-Game-Python
 ## Description 
-A game where you can shoot at enemies at the right of the screen in a scenario that is scrolling horizontally.
+A game where you can shoot at enemies at the right of the screen in a scenario that is scrolling horizontally. 
+
+If you have windows, you can [download the game executable here](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/latest/download/Sideshooter-Game-Python.exe).
 
 It's a simple example on how to use OOP principles.
 ### Topics:
