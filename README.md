@@ -1,10 +1,13 @@
 # Sideshooter-Game-Python
 ## Description 
-A game where you can shoot at enemies at the right of the screen in a scenario that is scrolling horizontally. 
+A game where you can shoot at enemies on the right side of the screen in a scenario that is scrolling horizontally. 
 
-If you have windows, you can [download the game executable here](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/latest/download/Sideshooter-Game-Python.exe).
+You can [download here the code of the game](https://github.com/igor-lirussi/Sideshooter-Game-Python/archive/refs/heads/main.zip)
 
-It's a simple example on how to use OOP principles.
+If you have windows, you can [download the final game executable here](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/latest/download/Sideshooter-Game-Python.exe).
+
+It's also a simple example of how to use [Object-oriented programming (OOP) Principles](https://en.wikipedia.org/wiki/Object-oriented_programming) while coding a game in Python.
+
 ### Topics:
 - Classes 
 - Basic Game Loop
@@ -26,21 +29,30 @@ It's a simple example on how to use OOP principles.
 - Pygame
 
 ## Run
-if your environment has the [`Requirements`](#requirements) you can start the game typing: 
+if your environment has already the [`Requirements`](#requirements) you can start the game typing with the terminal in the folder: 
 ```bash
 python game.py
 ```
 otherwise see the  [`Installation`](#installation) below
 
 ## Installation
+If you use Python with [Anaconda](https://www.anaconda.com/download). (I suggest Anaconda program to create isolated sandbox "environments" with python and your desired packages that you can easily delete or modify) 
+
 in *Anaconda Prompt*:
 ```bash
-conda create -n pygame python=3.10 #creates environment called "pygame" with python
-conda activate pygame  #activates the environment (you need to activate the environment every time)
-pip install pygame
+conda create -n pygame python=3.10 #creates environment called "pygame" with python (needed just once)
+conda activate pygame  #activates the environment (you need to activate the environment every time you open the prompt)
+pip install pygame #installs the pygame package (needed just once)
 ```
 
+If you don't use Anaconda:
+```bash
+pip install pygame #installs the pygame package (needed just once)
+```
+Now you can  [`Run`](#run) the game!
+
 ## Class Diagram
+To understand how all the entities have concepts in common:
 ![ClassDiagram](./diagrams/SimpleClassDiagram.png)
 
 ## Authors
@@ -51,16 +63,16 @@ This project is licensed under License - see the [LICENSE](LICENSE) file for det
 
 ### Useful Resources
 
-For starting and the game loop:
+For starting, and to understand the game loop:
  http://pygametutorials.wikidot.com/tutorials-basic
 
-Design patterns (but uses tyles)
+Design patterns and games in Python
  https://www.patternsgameprog.com/series/discover-python-and-patterns/
 
-A complete Guide
+A complete Guide on Pygame and Python
  https://coderslegacy.com/python/pygame-tutorial-part-3/
 
-Physics with spheres and radious collider
+Physics with spheres and radius collider
  http://www.youtube.com/watch?v=7AKatTpNSNQ&list=PLE3D1A71BB598FEF6
 
 Sentdex calculates box boundaries (but only vertical)
@@ -72,5 +84,5 @@ Simple Sidescrolling Shooter in Pygame (checking hardcoded distance between poin
 Checking the examples in the pygame repo
  https://github.com/pygame/pygame/blob/main/examples/aliens.py
  
-Extra tutorials for scolling bg, parallax, menu and buttons
+Extra tutorials for scrolling bg, parallax, menu, and buttons
  https://github.com/russs123/pygame_tutorials
