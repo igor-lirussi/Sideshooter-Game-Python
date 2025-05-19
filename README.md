@@ -2,11 +2,15 @@
 ## Description 
 A game where you can shoot at enemies on the right side of the screen in a scenario that is scrolling horizontally. 
 
-You can [download here the code of the game](https://github.com/igor-lirussi/Sideshooter-Game-Python/archive/refs/heads/main.zip)
-
-If you have windows, you can [download the final game executable here](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/latest/download/Sideshooter-Game-Python.exe).
-
 It's also a simple example of how to use [Object-oriented programming (OOP) Principles](https://en.wikipedia.org/wiki/Object-oriented_programming) while coding a game in Python.
+
+### Download
+If you have windows, you can [download here the final executable game](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/latest/download/Sideshooter-Game-Python.exe).
+
+You can [download here the final code of the game](https://github.com/igor-lirussi/Sideshooter-Game-Python/archive/refs/heads/main.zip)
+
+You can [download here the code at checkpoint1](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/download/Release_1.0.0_2022-12-30_18-22/checkpoint1.zip)
+
 
 ### Topics:
 - Classes 
