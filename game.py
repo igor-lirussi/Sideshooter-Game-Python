@@ -74,7 +74,6 @@ class Game():
         self.player = WhiteBloodCell('wbc.png', position_x=20, position_y=20, height=self.PLAYER_SIZE, width=self.PLAYER_SIZE, speed_x=self.PLAYER_SPEED, speed_y=self.PLAYER_SPEED)
         self.game_elements_group.add(self.player)
 
-
         #create bullets
         self.bullets_and_rocket_group = pygame.sprite.Group()
         self.r = Rocket("wbc2.png", position_x=self.WIDTH/2+80+self.ROCKET_SIZE, position_y=5, height=self.ROCKET_SIZE, width=self.ROCKET_SIZE, speed_x=2, speed_y=2)
@@ -168,7 +167,7 @@ class Game():
             for elem in self.game_elements_group:
                 elem.update_rect()
 
-            #check collisions plyer vs enemies
+            #check collisions player vs enemies
             enemy_collided_player = pygame.sprite.spritecollideany(self.player, self.enemies_group)
             if enemy_collided_player:
                 print("Player hit. Health loss: {}".format(enemy_collided_player.damage))
@@ -213,7 +212,7 @@ class Game():
             #draw background 
             self.background.move()
             self.background.draw(self.screen)
-            #dreaw background particles
+            #draw background particles
             self.backgr_particles.move()
             self.backgr_particles.draw(self.screen)
             #draw score

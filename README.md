@@ -4,12 +4,19 @@ A game where you can shoot at enemies on the right side of the screen in a scena
 
 It's also a simple example of how to use [Object-oriented programming (OOP) Principles](https://en.wikipedia.org/wiki/Object-oriented_programming) while coding a game in Python.
 
+## Result
+![Result](./img/result.gif)
+
+[![Nao Dialogue](./img/video.jpg)](https://youtu.be/1l4qPIHudrY "Python Tutorial Video")
+
 ### Download
 If you have windows, you can [download here the final executable game](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/latest/download/Sideshooter-Game-Python.exe).
 
 You can [download here the final code of the game](https://github.com/igor-lirussi/Sideshooter-Game-Python/archive/refs/heads/main.zip)
 
 You can [download here the code at checkpoint1](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/download/Release_1.0.0_2022-12-30_18-22/checkpoint1.zip)
+
+You can [download here the code at checkpoint2](https://github.com/igor-lirussi/Sideshooter-Game-Python/releases/download/Release_1.0.0_2022-12-30_18-22/checkpoint2.zip)
 
 
 ### Topics:
@@ -25,8 +32,6 @@ You can [download here the code at checkpoint1](https://github.com/igor-lirussi/
 - Health system, score and stats
 - Music
 
-## Result
-![Result](./img/result.gif)
 
 ## Requirements
 - Python 3
